@@ -111,7 +111,7 @@
 #define pthread_attr_default        NULL
 #endif
 
-#define PTHREAD_PRIO_NONE	0
+#define PTHREAD_PRIO_NONE	PTHREAD_MUTEX_DEFAULT
 #define PTHREAD_PRIO_INHERIT	1
 #define PTHREAD_PRIO_PROTECT	2
 
