@@ -111,7 +111,7 @@
 #define pthread_attr_default        NULL
 #endif
 
-#define PTHREAD_PRIO_NONE	0
+#define PTHREAD_PRIO_NONE	PTHREAD_MUTEX_DEFAULT
 #define PTHREAD_PRIO_INHERIT	1
 #define PTHREAD_PRIO_PROTECT	2
 
@@ -215,6 +215,25 @@ int pthread_cond_signal(pthread_cond_t *);
 int pthread_cond_broadcast(pthread_cond_t *);
 int pthread_cond_wait(pthread_cond_t *, pthread_mutex_t *__mutex);
 int pthread_cond_timedwait(pthread_cond_t *cond, pthread_mutex_t *mutex, const struct timespec *time);
+// // Pthread stuff needed by DSPAL?
+inline int pthread_once(pthread_once_t  *once_control, void (*init_routine)(void)) {
+    if (*once_control == 0) {
+        *once_control++;
+        init_routine();
+    } else {
+        return -1;
+    }
+    return 0;
+}
+inline int pthread_detach(pthread_t  thid) {
+    return 0;
+}
+
+// Scheduler stuff needed by DSPAL?
+inline int sched_yield(void) {
+    return 0;
+}
+
 // Not supported in DSPAL
 //int pthread_barrier_init(pthread_barrier_t *restrict barrier, const pthread_barrierattr_t *restrict attr, unsigned count);
 //int pthread_barrier_destroy(pthread_barrier_t *barrier);
